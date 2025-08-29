@@ -1,5 +1,9 @@
 package com.example.the_elite_driving_school_management_system.Controller;
 
+import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
+import com.example.the_elite_driving_school_management_system.Bo.Custom.LoginBo;
+import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
+import com.mysql.cj.result.BooleanValueFactory;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -28,45 +32,44 @@ public class LoginPageController implements Initializable {
     String namePattern = "^[A-Za-z ]{2,}$";
     String emailPattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
 
-
+    LoginBo loginBo= (LoginBo) BOFactory.getInstance().getBO(BOFactory.BOType.LOGIN);
     public void btnSignIn(ActionEvent actionEvent) {
     }
 
     public void btnSignUp(ActionEvent actionEvent) {
-        //username part
-         String name= signUpSectionUserName.getText();
-        if (name.matches(namePattern)){
-            signUpSectionUserName.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
-            System.out.println("name valid");
-            String validName = signUpSectionUserName.getText();
+       LoginDTO loginDTO = checkMach();
+        boolean isSaved = loginBo.saveLogin(loginDTO);
+        clearAllText();
+        ANCSignUp.setVisible(false);
+        ANCSignIn.setVisible(true);
 
-        }else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Name is not valid");
-            alert.setHeaderText(null);
-            signUpSectionUserName.clear();
-            signUpSectionUserName.requestFocus();
-            signUpSectionUserName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+       if (isSaved) {
+           new Alert(Alert.AlertType.INFORMATION,"Sign Up Successful").show();
+       }else {
+           new Alert(Alert.AlertType.ERROR,"Sign Up Failed").show();
+           clearAllText();
+           signUpSectionUserName.requestFocus();
+       }
+
+    }
+    public LoginDTO checkMach(){
+        String name= signUpSectionUserName.getText();
+        String password= signUpSecssionPassword.getText();
+        String email= signUpsecssionEmail.getText();
+
+        boolean isValid = name.matches(namePattern);
+        boolean isValidEmail = email.matches(emailPattern);
+
+        signUpSectionUserName.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
+        signUpSecssionPassword.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
+        signUpsecssionEmail.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
+
+        if (!isValid) signUpSectionUserName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        if (isValidEmail) signUpsecssionEmail.setStyle("-fx-border-color:red; -fx-border-width: 2px;");
+        if (isValid && isValidEmail){
+            return new LoginDTO(name, email, password);
         }
-        /// //////////////////////////////////////////////////////////////////////////
-        String password = signUpSecssionPassword.getText();
-        /// /////////////////////////////////////////////////////////////////////////
-        //email part
-        if (password.matches(emailPattern)){
-            String email=signUpsecssionEmail.getText();
-            if (email.matches(emailPattern)){
-                String validEmail = signUpsecssionEmail.getText();
-                System.out.println("email valid");
-                signUpsecssionEmail.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
-            }else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Email is not valid");
-                alert.setHeaderText(null);
-                signUpsecssionEmail.clear();
-                signUpsecssionEmail.requestFocus();
-                signUpsecssionEmail.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
-            }
-        }
+        return null;
     }
 
 

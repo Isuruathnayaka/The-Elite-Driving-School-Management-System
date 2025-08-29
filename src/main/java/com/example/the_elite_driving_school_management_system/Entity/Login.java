@@ -9,7 +9,7 @@ import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name="users")
+@Table(name="login")
 public class Login {
     @Id
     @Column(name="id",updatable = false,nullable = false)
