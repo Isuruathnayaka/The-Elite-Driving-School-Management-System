@@ -33,14 +33,39 @@ public class LoginPageController implements Initializable {
     }
 
     public void btnSignUp(ActionEvent actionEvent) {
+        //username part
          String name= signUpSectionUserName.getText();
         if (name.matches(namePattern)){
+            signUpSectionUserName.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
             System.out.println("name valid");
+            String validName = signUpSectionUserName.getText();
+
         }else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Name is not valid");
             alert.setHeaderText(null);
+            signUpSectionUserName.clear();
+            signUpSectionUserName.requestFocus();
             signUpSectionUserName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+        }
+        /// //////////////////////////////////////////////////////////////////////////
+        String password = signUpSecssionPassword.getText();
+        /// /////////////////////////////////////////////////////////////////////////
+        //email part
+        if (password.matches(emailPattern)){
+            String email=signUpsecssionEmail.getText();
+            if (email.matches(emailPattern)){
+                String validEmail = signUpsecssionEmail.getText();
+                System.out.println("email valid");
+                signUpsecssionEmail.setStyle("-fx-border-color: #2c3e50; -fx-border-width: 2px;");
+            }else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Email is not valid");
+                alert.setHeaderText(null);
+                signUpsecssionEmail.clear();
+                signUpsecssionEmail.requestFocus();
+                signUpsecssionEmail.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
+            }
         }
     }
 
@@ -50,6 +75,7 @@ public class LoginPageController implements Initializable {
 
         signInAnimation();
         SignUptxtButton.setOnMouseClicked(event -> {
+            clearAllText();
             ANCSignIn.setVisible(false);
             ANCSignUp.setVisible(true);
             //SignUp Animation
@@ -64,6 +90,7 @@ public class LoginPageController implements Initializable {
         });
 
         signInMessageButton.setOnMouseClicked(event -> {
+            clearAllText();
             ANCSignUp.setVisible(false);
             ANCSignIn.setVisible(true);
             signInAnimation();
@@ -79,5 +106,14 @@ public class LoginPageController implements Initializable {
         slide.setFromX(-400);
         slide.setToX(0);
         slide.play();
+    }
+    public void clearAllText(){
+        signInUserName.clear();
+        signInEmail.clear();
+        signInPassword.clear();
+        signUpsecssionEmail.clear();
+        signUpSecssionPassword.clear();
+        signUpSectionUserName.clear();
+
     }
 }
