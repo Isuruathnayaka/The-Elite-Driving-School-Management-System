@@ -12,6 +12,7 @@ module com.example.the_elite_driving_school_management_system {
 
     // JNDI (fixes javax.naming.Referenceable error)
     requires java.naming;
+    requires jbcrypt;
 
     // Open entity packages for Hibernate reflection
     opens com.example.the_elite_driving_school_management_system.Entity to org.hibernate.orm.core;

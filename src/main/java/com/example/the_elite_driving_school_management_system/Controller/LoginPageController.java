@@ -17,6 +17,8 @@ import javafx.util.Duration;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+
+
 public class LoginPageController implements Initializable {
     public TextField signInUserName;
     public TextField signInEmail;
@@ -34,6 +36,32 @@ public class LoginPageController implements Initializable {
 
     LoginBo loginBo= (LoginBo) BOFactory.getInstance().getBO(BOFactory.BOType.LOGIN);
     public void btnSignIn(ActionEvent actionEvent) {
+        String email = signInEmail.getText().trim();
+        String password = signInPassword.getText().trim();
+
+        if (email.isEmpty() || password.isEmpty()) {
+            new Alert(Alert.AlertType.WARNING, "Please enter username and password").show();
+            return;
+        }
+
+        try {
+
+            boolean isValid = loginBo.validateLoginDetails(email, password);
+
+            if (isValid) {
+                new Alert(Alert.AlertType.INFORMATION, "Login Successful").show();
+                // TODO: Open next page / dashboard
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Invalid username or password").show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            new Alert(Alert.AlertType.ERROR, "Error during login").show();
+        }
+
+        // Clear input fields
+        signInUserName.clear();
+        signInPassword.clear();
     }
 
     public void btnSignUp(ActionEvent actionEvent) {
@@ -67,7 +95,7 @@ public class LoginPageController implements Initializable {
         if (!isValid) signUpSectionUserName.setStyle("-fx-border-color: red; -fx-border-width: 2px;");
         if (isValidEmail) signUpsecssionEmail.setStyle("-fx-border-color:red; -fx-border-width: 2px;");
         if (isValid && isValidEmail){
-            return new LoginDTO(name, email, password);
+            return new LoginDTO(name, password, email);
         }
         return null;
     }

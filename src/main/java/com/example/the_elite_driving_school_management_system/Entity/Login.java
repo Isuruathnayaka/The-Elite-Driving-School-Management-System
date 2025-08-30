@@ -1,10 +1,7 @@
 package com.example.the_elite_driving_school_management_system.Entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -12,8 +9,9 @@ import java.util.UUID;
 @Table(name="login")
 public class Login {
     @Id
-    @Column(name="id",updatable = false,nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // AUTO-INCREMENT
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
     @Column(name = "username",updatable = false,nullable = false)
     private String username;
     @Column(name = "password",nullable =false)
@@ -22,7 +20,7 @@ public class Login {
     private String email;
 
     public Login() {
-        this.id = UUID.randomUUID().toString();
+
     }
     public Login(String username, String password, String email) {
         this();
@@ -31,11 +29,11 @@ public class Login {
         this.email = email;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

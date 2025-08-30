@@ -4,4 +4,6 @@ import com.example.the_elite_driving_school_management_system.Entity.Login;
 
 public interface LoginDAO {
     boolean save(Login dto);
+
+    Login findByEmail(String email);
 }
