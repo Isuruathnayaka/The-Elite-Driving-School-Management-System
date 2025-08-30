@@ -6,12 +6,17 @@ import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
 import com.mysql.cj.result.BooleanValueFactory;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
@@ -49,8 +54,16 @@ public class LoginPageController implements Initializable {
             boolean isValid = loginBo.validateLoginDetails(email, password);
 
             if (isValid) {
-                new Alert(Alert.AlertType.INFORMATION, "Login Successful").show();
-                // TODO: Open next page / dashboard
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/the_elite_driving_school_management_system/view/Dashboard.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Dashboard");
+                stage.show();
+                // Close current window
+                Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                currentStage.close();
+
             } else {
                 new Alert(Alert.AlertType.ERROR, "Invalid username or password").show();
             }
@@ -147,4 +160,5 @@ public class LoginPageController implements Initializable {
         signUpSectionUserName.clear();
 
     }
+
 }
