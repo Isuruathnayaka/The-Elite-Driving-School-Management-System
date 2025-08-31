@@ -1,6 +1,7 @@
 package com.example.the_elite_driving_school_management_system.DAO;
 
 import com.example.the_elite_driving_school_management_system.DAO.Custom.impl.LoginDAOimpl;
+import com.example.the_elite_driving_school_management_system.DAO.Custom.impl.StudentDAOImpl;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -12,12 +13,15 @@ public class DAOFactory {
         return daoFactory;
     }
     public enum DAOType {
-        LOGIN
+        LOGIN,
+        STUDENT
     }
-    public LoginDAOimpl getDAO(DAOType type) {
+    public SuperDAO getDAO(DAOType type) {
         switch (type) {
             case LOGIN:
                 return new LoginDAOimpl();
+                case STUDENT:
+                    return new StudentDAOImpl();
         }
         return null;
     }

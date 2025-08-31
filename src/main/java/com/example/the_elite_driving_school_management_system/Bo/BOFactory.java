@@ -2,6 +2,7 @@ package com.example.the_elite_driving_school_management_system.Bo;
 
 import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.LoginBoImpl;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.LoginDAO;
+import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
 import com.example.the_elite_driving_school_management_system.DAO.DAOFactory;
 
 public class BOFactory {
@@ -15,13 +16,16 @@ public class BOFactory {
         return boFactory;
     }
     public enum BOType {
-        LOGIN
+        LOGIN,
+        STUDENT
     }
     public LoginBoImpl getBO(BOType boType){
         switch (boType) {
             case LOGIN:
                 LoginDAO loginDAO=(LoginDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.LOGIN);
                 return new LoginBoImpl(loginDAO);
+                case STUDENT:
+                    StudentDAO studentDAO=(StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.STUDENT);
         }
         return null;
     }
