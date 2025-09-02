@@ -1,46 +1,59 @@
 package com.example.the_elite_driving_school_management_system.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Objects;
+
 
 @Entity
-@Table(name="student")
+@Table(name = "student")
 public class Student {
+
     @Id
-    @Column(name = "studentId", nullable = false,unique = true)
+    @Column(name = "studentId", nullable = false, unique = true)
+
     private String id;
+
     @Column(name = "name", nullable = false)
     private String name;
+
     @Column(name = "age", nullable = false)
     private int age;
+
     @Column(name = "address", nullable = false)
     private String address;
+
     @Column(name = "contact", nullable = false)
     private String contact;
+
     @Column(name = "email", nullable = false)
     private String email;
-    @Column(name = "date", nullable = false)
-    private Date  date;
-    @Column(name = "course", nullable = false)
-    private String course;
 
+    @Column(name = "registrationDate", nullable = false)
+    private LocalDate registrationDate;
+
+    @Column(name = "courseType", nullable = false)
+
+    private String courseType;
+
+    // Default constructor (required by JPA)
     public Student() {}
-    public Student(String id, String name, int age, String address, String contact, String email, Date date, String course) {
+
+    // Full constructor
+    public Student(String id, String name, int age, String address, String contact,
+                   String email, LocalDate registrationDate, String courseType) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.address = address;
         this.contact = contact;
         this.email = email;
-        this.date = date;
-        this.course = course;
-
+        this.registrationDate = registrationDate;
+        this.courseType = courseType;
     }
 
+    // Getters and Setters
     public String getId() {
         return id;
     }
@@ -89,19 +102,47 @@ public class Student {
         this.email = email;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setRegistrationDate(LocalDate registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
-    public String getCourse() {
-        return course;
+    public String getCourseType() {
+        return courseType;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setCourseType(String courseType) {
+        this.courseType = courseType;
+    }
+
+    // Essential methods for entity classes
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(id, student.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", address='" + address + '\'' +
+                ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
+                ", registrationDate=" + registrationDate +
+                ", courseType='" + courseType + '\'' +
+                '}';
     }
 }

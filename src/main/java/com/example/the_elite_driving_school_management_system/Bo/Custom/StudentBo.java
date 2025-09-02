@@ -1,4 +1,12 @@
 package com.example.the_elite_driving_school_management_system.Bo.Custom;
 
-public interface StudentBo {
+import com.example.the_elite_driving_school_management_system.Bo.CrudBo;
+import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
+import com.example.the_elite_driving_school_management_system.Entity.Student;
+
+public interface StudentBo extends CrudBo<StudentDTO> {
+
+
+    String generateNewStudentId();
+
 }

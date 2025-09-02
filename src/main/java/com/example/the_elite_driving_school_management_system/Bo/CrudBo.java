@@ -1,5 +1,7 @@
 package com.example.the_elite_driving_school_management_system.Bo;
 
-public interface CrudBo {
+import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 
+public interface CrudBo<T> extends SuperBO {
+ boolean save(T dto);
 }

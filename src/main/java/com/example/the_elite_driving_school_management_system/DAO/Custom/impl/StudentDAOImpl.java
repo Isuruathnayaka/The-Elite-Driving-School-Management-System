@@ -10,15 +10,94 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public boolean save(Student dto) {
-
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            session.save(dto);
+            // Use persist() instead of save() for Hibernate 6.0+
+            session.persist(dto);
             tx.commit();
             return true;
         } catch (Exception e) {
-            tx.rollback();
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public String generateNewId() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Get the last studentId (ordered descending)
+            String lastId = session.createQuery(
+                            "SELECT s.id FROM Student s ORDER BY s.id DESC", String.class
+                    )
+                    .setMaxResults(1)   // only take top 1
+                    .uniqueResult();
+
+            if (lastId != null) {
+                // Extract digits only
+                String numericPart = lastId.replaceAll("\\D", "");
+                int newId = Integer.parseInt(numericPart) + 1;
+
+                // Format as S001, S002, etc.
+                return String.format("S%03d", newId);
+            } else {
+                return "S001"; // first ID
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "S001"; // fallback to first ID if query fails
+        }
+    }
+
+    // Additional CRUD methods you might need
+
+    public Student findById(String id) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.get(Student.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public boolean update(Student student) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            session.merge(student); // Use merge() for updates
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
+    }
+
+    public boolean delete(String id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            Student student = session.get(Student.class, id);
+            if (student != null) {
+                session.remove(student); // Use remove() instead of delete()
+                tx.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
             e.printStackTrace();
             return false;
         } finally {

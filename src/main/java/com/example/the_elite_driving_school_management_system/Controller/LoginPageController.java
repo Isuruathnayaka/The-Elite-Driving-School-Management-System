@@ -79,7 +79,7 @@ public class LoginPageController implements Initializable {
 
     public void btnSignUp(ActionEvent actionEvent) {
        LoginDTO loginDTO = checkMach();
-        boolean isSaved = loginBo.saveLogin(loginDTO);
+        boolean isSaved = loginBo.save(loginDTO);
         clearAllText();
         ANCSignUp.setVisible(false);
         ANCSignIn.setVisible(true);

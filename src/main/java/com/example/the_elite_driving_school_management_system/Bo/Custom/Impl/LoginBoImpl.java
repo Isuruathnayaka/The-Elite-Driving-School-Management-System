@@ -4,6 +4,7 @@ import com.example.the_elite_driving_school_management_system.Bo.Custom.LoginBo;
 import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.LoginDAO;
 import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
+import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Login;
 import com.example.the_elite_driving_school_management_system.Util.PasswordUtil;
 
@@ -16,13 +17,13 @@ public class LoginBoImpl implements LoginBo {
         this.loginDAO = loginDAO;
     }
 
-    @Override
-    public boolean saveLogin(LoginDTO dto) {
-        // Convert DTO → Entity
-        String encryptedPassword = PasswordUtil.hashPassword(dto.getPassword());
-        dto.setPassword(encryptedPassword);
-        return loginDAO.save(MapUtil.toEntity(dto));
-    }
+//    @Override
+//    public boolean saveLogin(LoginDTO dto) {
+//        // Convert DTO → Entity
+//        String encryptedPassword = PasswordUtil.hashPassword(dto.getPassword());
+//        dto.setPassword(encryptedPassword);
+//        return loginDAO.save(MapUtil.toEntity(dto));
+//    }
     @Override
     public boolean validateLogin(String loginEmail, String loginPassword) {
         // 1️⃣ Get the login entity from DAO
@@ -45,4 +46,13 @@ public class LoginBoImpl implements LoginBo {
         return false;
     }
 
+
+
+    @Override
+    public boolean save(LoginDTO dto) {
+        // Convert DTO → Entity
+        String encryptedPassword = PasswordUtil.hashPassword(dto.getPassword());
+        dto.setPassword(encryptedPassword);
+        return loginDAO.save(MapUtil.toEntity(dto));
+    }
 }

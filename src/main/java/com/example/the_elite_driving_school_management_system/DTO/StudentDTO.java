@@ -10,7 +10,7 @@ public class StudentDTO {
     private String address;
     private String contact;
     private String email;
-    private Date date;
+    private LocalDate date;
     private String course;
 
     public StudentDTO(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String course) {
@@ -73,11 +73,11 @@ public class StudentDTO {
         this.email = email;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
