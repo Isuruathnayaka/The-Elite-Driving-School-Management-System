@@ -10,4 +10,6 @@ public interface StudentDAO extends CrudDAO<Student> {
     String generateNewId();
 
     ArrayList<Student> getAll();
+
+    boolean delete(String studentId);
 }

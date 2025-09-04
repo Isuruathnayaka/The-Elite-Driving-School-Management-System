@@ -97,11 +97,11 @@ public class StudentDAOImpl implements StudentDAO {
         }
     }
 
-    public boolean delete(String id) {
+    public boolean delete(String studentId) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            Student student = session.get(Student.class, id);
+            Student student = session.get(Student.class, studentId);
             if (student != null) {
                 session.remove(student); // Use remove() instead of delete()
                 tx.commit();

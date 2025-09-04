@@ -40,4 +40,9 @@ public class StudentBoImpl implements StudentBo {
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
+    @Override
+    public boolean delete(String studentId) {
+        return  studentDAO.delete(studentId);
+    }
+
 }

@@ -215,6 +215,21 @@ public class StudentController implements Initializable {
     }
 
     public void btnDelete(ActionEvent actionEvent) {
+        StudentTM selectedStudent = table.getSelectionModel().getSelectedItem();
+
+        if (selectedStudent != null) {
+            boolean isDeleted = studentBo.delete(selectedStudent.getId()); // Use your BO delete method
+
+            if (isDeleted) {
+                new Alert(Alert.AlertType.INFORMATION, "Student Deleted Successfully").show();
+                loadTableData();
+               // clearFields();
+            } else {
+                new Alert(Alert.AlertType.ERROR, "Failed to Delete Student").show();
+            }
+        } else {
+            new Alert(Alert.AlertType.WARNING, "Please select a student to delete").show();
+        }
     }
 
     public void btnView(ActionEvent actionEvent) {

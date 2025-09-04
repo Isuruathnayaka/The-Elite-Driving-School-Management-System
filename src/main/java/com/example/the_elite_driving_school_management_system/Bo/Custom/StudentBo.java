@@ -12,4 +12,7 @@ public interface StudentBo extends CrudBo<StudentDTO> {
     String generateNewStudentId();
 
     ArrayList<StudentDTO> getAllStudents();
+
+
+    boolean delete(String studentId);
 }

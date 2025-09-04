@@ -6,4 +6,5 @@ public interface CrudBo<T> extends SuperBO {
  boolean save(T dto);
 
  boolean update(T dto);
+
 }
