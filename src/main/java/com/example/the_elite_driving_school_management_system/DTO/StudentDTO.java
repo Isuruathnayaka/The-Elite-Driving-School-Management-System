@@ -98,4 +98,16 @@ public class StudentDTO {
     public void setCourse(String course) {
         this.course = course;
     }
+
+    public String getId() {
+        return studentID;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return date;
+    }
+
+    public String getCourseType() {
+        return course;
+    }
 }

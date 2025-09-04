@@ -20,6 +20,7 @@ module com.example.the_elite_driving_school_management_system {
 
     // Open controller package for FXML
     opens com.example.the_elite_driving_school_management_system.Controller to javafx.fxml;
+    opens com.example.the_elite_driving_school_management_system.TM to javafx.base;
 
     // Export packages if needed outside
     exports com.example.the_elite_driving_school_management_system;

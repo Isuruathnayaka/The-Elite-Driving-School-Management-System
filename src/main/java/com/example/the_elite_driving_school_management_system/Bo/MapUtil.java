@@ -37,4 +37,20 @@ public class MapUtil {
                 student.getCourseId()
         );
     }
+
+
+
+    public static StudentDTO toDTO(Student student) {
+        return new StudentDTO(
+                student.getId(),
+                student.getName(),
+                student.getAge(),
+                student.getAddress(),
+                student.getContact(),
+                student.getEmail(),
+                student.getRegistrationDate(),
+                student.getCourseType(),
+                student.getCourseId()
+        );
+    }
 }

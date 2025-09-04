@@ -1,10 +1,16 @@
 package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
+import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
+import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
 import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentDAOImpl implements StudentDAO {
 
@@ -51,6 +57,14 @@ public class StudentDAOImpl implements StudentDAO {
         } catch (Exception e) {
             e.printStackTrace();
             return "S001"; // fallback to first ID if query fails
+        }
+    }
+
+    @Override
+    public ArrayList<Student> getAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            List<Student> entityList = session.createQuery("from Student", Student.class).list();
+            return new ArrayList<>(entityList); // return entities
         }
     }
 

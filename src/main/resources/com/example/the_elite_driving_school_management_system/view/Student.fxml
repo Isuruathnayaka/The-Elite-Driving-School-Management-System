@@ -55,9 +55,10 @@
             <TableColumn fx:id="colAge" prefWidth="76.0" text="Age" />
             <TableColumn fx:id="colAddress" prefWidth="211.0" text="Address" />
             <TableColumn fx:id="colContact" prefWidth="203.0" text="Contact" />
-            <TableColumn fx:id="colEmail" prefWidth="349.0" text="Email" />
-            <TableColumn fx:id="colDate" prefWidth="276.0" text="Date" />
-            <TableColumn fx:id="colCourses" prefWidth="585.0" text="Courses" />
+            <TableColumn fx:id="colEmail" prefWidth="241.0" text="Email" />
+            <TableColumn fx:id="colDate" prefWidth="186.0" text="Date" />
+            <TableColumn fx:id="colCourses" prefWidth="294.0" text="Courses" />
+            <TableColumn fx:id="colCourseId" prefWidth="1074.0" text="CourseID" />
         </columns>
       </TableView>
       <Label fx:id="txtStudentId" layoutX="11.0" layoutY="58.0" text="StudentID" />

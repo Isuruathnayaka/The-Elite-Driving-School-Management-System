@@ -147,4 +147,20 @@ public class Student {
                 ", courseType='" + courseType + '\'' +
                 '}';
     }
+
+    public String getStudentID() {
+        return id;
+    }
+
+    public LocalDate getDate() {
+        return registrationDate;
+    }
+
+    public String getCourse() {
+        return courseType;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
 }

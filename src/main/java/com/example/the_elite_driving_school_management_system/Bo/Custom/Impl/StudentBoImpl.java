@@ -5,9 +5,9 @@ import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
 import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
-import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class StudentBoImpl implements StudentBo {
     private final StudentDAO studentDAO;
@@ -24,6 +24,15 @@ public class StudentBoImpl implements StudentBo {
     @Override
     public String generateNewStudentId() {
         return studentDAO.generateNewId();
+    }
+
+    @Override
+    public ArrayList<StudentDTO> getAllStudents() {
+        ArrayList<Student> students = studentDAO.getAll();
+        return students
+                .stream()
+                .map(MapUtil::toDTO)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
 }
