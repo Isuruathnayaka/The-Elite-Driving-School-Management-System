@@ -77,6 +77,7 @@ public class StudentController implements Initializable {
         String contact = txtContact.getText();
         LocalDate date = datePiker.getValue();
         String courses = courseList.getText();
+        String courseID = txtCourseID.getText();
 
         boolean isValidName = name.matches(namePattern);
         boolean isValidEmail = email.matches(emailPattern);
@@ -90,13 +91,14 @@ public class StudentController implements Initializable {
         txtContact.setStyle("-fx-border-color: #7367F0;");
         datePiker.setStyle("-fx-border-color: #7367F0;");
         courseList.setStyle("-fx-border-color: #7367F0;");
+        txtCourseID.setStyle(courseID + " -fx-border-color: #7367F0;");
 
         if (!isValidName) txtName.setStyle("-fx-border-color:red;");
         if (!isValidEmail) txtEmail.setStyle("-fx-border-color:red;");
         if (!isValiedPhone) txtContact.setStyle("-fx-border-color:red;");
 
         if (isValidName && isValidEmail && isValiedPhone) {
-            return new StudentDTO(studentId, name, age, address, contact, email, date, courses);
+            return new StudentDTO(studentId, name, age, address, contact, email, date, courses,courseID);
         }
         return null;
     }

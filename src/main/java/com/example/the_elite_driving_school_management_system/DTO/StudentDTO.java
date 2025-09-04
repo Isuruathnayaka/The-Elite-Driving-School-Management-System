@@ -12,8 +12,9 @@ public class StudentDTO {
     private String email;
     private LocalDate date;
     private String course;
+    private String courseId;
 
-    public StudentDTO(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String course) {
+    public StudentDTO(String studentID, String name, int age, String address, String contact, String email, LocalDate date, String course, String courseId) {
         this.studentID = studentID;
         this.name = name;
         this.age = age;
@@ -22,11 +23,20 @@ public class StudentDTO {
         this.email = email;
         this.date = date;
         this.course = course;
+        this.courseId = courseId;
 
     }
 
     public String getStudentID() {
         return studentID;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
 
     public void setStudentID(String studentID) {

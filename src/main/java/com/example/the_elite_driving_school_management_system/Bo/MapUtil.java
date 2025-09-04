@@ -33,7 +33,8 @@ public class MapUtil {
                 student.getContact(),
                 student.getEmail(),
                 student.getDate(),   // converted Date here
-                student.getCourse()
+                student.getCourse(),
+                student.getCourseId()
         );
     }
 }

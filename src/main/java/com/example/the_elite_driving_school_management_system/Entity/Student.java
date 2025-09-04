@@ -34,15 +34,16 @@ public class Student {
     private LocalDate registrationDate;
 
     @Column(name = "courseType", nullable = false)
-
     private String courseType;
+    @Column(name = "courseId", nullable = false, unique = true)
+    private String courseId;
 
     // Default constructor (required by JPA)
     public Student() {}
 
     // Full constructor
     public Student(String id, String name, int age, String address, String contact,
-                   String email, LocalDate registrationDate, String courseType) {
+                   String email, LocalDate registrationDate, String courseType, String courseId) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -51,6 +52,7 @@ public class Student {
         this.email = email;
         this.registrationDate = registrationDate;
         this.courseType = courseType;
+        this.courseId = courseId;
     }
 
     // Getters and Setters
