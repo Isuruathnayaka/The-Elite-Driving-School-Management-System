@@ -202,11 +202,32 @@ public class StudentController implements Initializable {
     }
 
     public void btnUpdate(ActionEvent actionEvent) {
+    StudentDTO studentDTO = checkMatch();
+    if (studentDTO != null) {
+        boolean isUpdated=studentBo.update(studentDTO);
+        if (isUpdated) {
+            loadTableData();
+            new Alert(Alert.AlertType.INFORMATION, "Student Updated Successfully").show();
+        }else {
+            new Alert(Alert.AlertType.ERROR, "Student Not Update ").show();
+        }
+    }
     }
 
     public void btnDelete(ActionEvent actionEvent) {
     }
 
     public void btnView(ActionEvent actionEvent) {
+    }
+
+    public void btnReset(ActionEvent actionEvent) {
+        txtName.clear();
+        txtAge.clear();
+        txtAddress.clear();
+        txtEmail.clear();
+        txtContact.clear();
+        txtCourseID.clear();
+        datePiker.setValue(null);
+        courseList.clear();
     }
 }

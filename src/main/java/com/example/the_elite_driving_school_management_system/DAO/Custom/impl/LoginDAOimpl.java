@@ -26,6 +26,11 @@ public class LoginDAOimpl implements LoginDAO {
     }
 
     @Override
+    public boolean update(Login dto) {
+        return false;
+    }
+
+    @Override
     public Login findByEmail(String email) {
        try(Session session = HibernateUtil.getSessionFactory().openSession()){
            return session.createQuery("from Login where email = :email", Login.class).setParameter("email", email).uniqueResult();

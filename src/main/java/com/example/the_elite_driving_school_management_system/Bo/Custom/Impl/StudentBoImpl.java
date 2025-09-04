@@ -22,6 +22,11 @@ public class StudentBoImpl implements StudentBo {
     }
 
     @Override
+    public boolean update(StudentDTO dto) {
+        return studentDAO.update(MapUtil.toEntity(dto));
+    }
+
+    @Override
     public String generateNewStudentId() {
         return studentDAO.generateNewId();
     }
