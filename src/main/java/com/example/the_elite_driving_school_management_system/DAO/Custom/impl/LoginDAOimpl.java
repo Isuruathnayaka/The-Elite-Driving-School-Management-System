@@ -1,6 +1,8 @@
 package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
 import com.example.the_elite_driving_school_management_system.DAO.Custom.LoginDAO;
+import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
+import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Login;
 import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
 import org.hibernate.Session;
@@ -25,10 +27,7 @@ public class LoginDAOimpl implements LoginDAO {
         }
     }
 
-    @Override
-    public boolean update(Login dto) {
-        return false;
-    }
+
 
     @Override
     public Login findByEmail(String email) {
@@ -39,6 +38,12 @@ public class LoginDAOimpl implements LoginDAO {
     }
 
 
+
+
+    @Override
+    public boolean update(Login dto) {
+        return false;
+    }
 }
 
 

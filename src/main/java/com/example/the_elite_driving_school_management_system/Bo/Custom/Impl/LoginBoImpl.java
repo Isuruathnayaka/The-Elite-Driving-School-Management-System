@@ -56,6 +56,8 @@ public class LoginBoImpl implements LoginBo {
         return loginDAO.save(MapUtil.toEntity(dto));
     }
 
+
+
     @Override
     public boolean update(LoginDTO dto) {
         return false;

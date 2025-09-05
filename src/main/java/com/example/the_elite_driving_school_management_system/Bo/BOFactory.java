@@ -1,7 +1,9 @@
 package com.example.the_elite_driving_school_management_system.Bo;
 
+import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.InstructorBoImpl;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.LoginBoImpl;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.Impl.StudentBoImpl;
+import com.example.the_elite_driving_school_management_system.DAO.Custom.InstructorDAO;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.LoginDAO;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
 import com.example.the_elite_driving_school_management_system.DAO.DAOFactory;
@@ -20,7 +22,8 @@ public class BOFactory {
 
     public enum BOType {
         LOGIN,
-        STUDENT
+        STUDENT,
+        INSTRUCTOR
     }
 
     public SuperBO getBO(BOType boType) {
@@ -32,6 +35,10 @@ public class BOFactory {
             case STUDENT:
                 StudentDAO studentDAO = (StudentDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.STUDENT);
                 return new StudentBoImpl(studentDAO);
+
+                case INSTRUCTOR:
+                    InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.INSTRUCTOR);
+                    return new InstructorBoImpl(instructorDAO);
 
             default:
                 throw new IllegalArgumentException("Invalid BO Type: " + boType);
