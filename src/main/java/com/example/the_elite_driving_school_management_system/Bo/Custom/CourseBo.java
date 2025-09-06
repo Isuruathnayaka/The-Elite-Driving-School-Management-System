@@ -1,0 +1,7 @@
+package com.example.the_elite_driving_school_management_system.Bo.Custom;
+
+import com.example.the_elite_driving_school_management_system.Bo.CrudBo;
+import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
+
+public interface CourseBo extends CrudBo<CourseDTO> {
+}

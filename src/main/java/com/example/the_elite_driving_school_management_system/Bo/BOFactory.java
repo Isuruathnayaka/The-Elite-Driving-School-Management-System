@@ -23,7 +23,8 @@ public class BOFactory {
     public enum BOType {
         LOGIN,
         STUDENT,
-        INSTRUCTOR
+        INSTRUCTOR,
+        COURSE
     }
 
     public SuperBO getBO(BOType boType) {
@@ -39,6 +40,9 @@ public class BOFactory {
                 case INSTRUCTOR:
                     InstructorDAO instructorDAO = (InstructorDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.INSTRUCTOR);
                     return new InstructorBoImpl(instructorDAO);
+
+                    case COURSE:
+
 
             default:
                 throw new IllegalArgumentException("Invalid BO Type: " + boType);

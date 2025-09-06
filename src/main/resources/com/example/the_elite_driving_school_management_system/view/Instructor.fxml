@@ -4,6 +4,7 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -47,22 +48,23 @@
         <Button layoutX="250.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnDelete" text="Delete" />
         <Button layoutX="357.0" layoutY="543.0" mnemonicParsing="false" onAction="#btnView" text="View" />
         <TextArea fx:id="courseList" layoutX="470.0" layoutY="398.0" prefHeight="66.0" prefWidth="389.0" />
-        <TableView fx:id="table" layoutX="-2.0" layoutY="734.0" prefHeight="345.0" prefWidth="1920.0">
+        <TableView fx:id="table" layoutY="647.0" prefHeight="433.0" prefWidth="1920.0">
             <columns>
                 <TableColumn fx:id="colInstructorId" prefWidth="90.0" text="InstructorID" />
                 <TableColumn fx:id="colName" prefWidth="129.0" text="Name" />
                 <TableColumn fx:id="colAge" prefWidth="76.0" text="Age" />
-                <TableColumn fx:id="colAddress" prefWidth="211.0" text="Address" />
-                <TableColumn fx:id="colContact" prefWidth="203.0" text="Contact" />
-                <TableColumn fx:id="colEmail" prefWidth="241.0" text="Email" />
-                <TableColumn fx:id="colDate" prefWidth="186.0" text="Date" />
-                <TableColumn fx:id="colCourses" prefWidth="294.0" text="Courses" />
-                <TableColumn fx:id="colCourseId" prefWidth="1074.0" text="CourseID" />
+                <TableColumn fx:id="colAddress" prefWidth="167.0" text="Address" />
+                <TableColumn fx:id="colContact" prefWidth="214.0" text="Contact" />
+                <TableColumn fx:id="colEmail" prefWidth="142.0" text="Email" />
+                <TableColumn fx:id="colDate" prefWidth="135.0" text="Date" />
+                <TableColumn fx:id="colCourses" minWidth="0.0" prefWidth="93.0" text="Courses" />
+                <TableColumn fx:id="colCourseId" prefWidth="1458.0" text="CourseID" />
             </columns>
         </TableView>
         <Label fx:id="txtInstructorID" layoutX="11.0" layoutY="58.0" text="InstructorID" />
         <ListView fx:id="courseListView" layoutX="899.0" layoutY="228.0" prefHeight="200.0" prefWidth="200.0" />
         <TextField fx:id="txtCourseID" layoutX="15.0" layoutY="474.0" />
         <Button layoutX="451.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnReset" text="Reset" />
+      <RadioButton fx:id="availableInstuctor" layoutX="474.0" layoutY="491.0" mnemonicParsing="false" text="Available" />
     </children>
 </AnchorPane>

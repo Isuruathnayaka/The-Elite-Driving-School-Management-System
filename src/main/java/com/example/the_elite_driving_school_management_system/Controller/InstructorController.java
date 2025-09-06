@@ -49,6 +49,7 @@ public class InstructorController implements Initializable {
 
     private final InstructorBo instructorBo=(InstructorBo) BOFactory.getInstance().getBO(BOFactory.BOType.INSTRUCTOR);
     public Label txtInstructorID;
+    public RadioButton availableInstuctor;
 
     public void btnReset(ActionEvent actionEvent) {
     }
