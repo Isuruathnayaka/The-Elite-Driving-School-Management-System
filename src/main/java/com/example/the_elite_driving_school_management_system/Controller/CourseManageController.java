@@ -107,5 +107,27 @@ public class CourseManageController implements Initializable {
         }
         return null;
     }
+
+    public void btnEditCourse(ActionEvent actionEvent) {
+        addCourseANC.setVisible(true);
+
+    }
+
+    public void btnDelete(ActionEvent actionEvent) {
+    }
+
+    public void btnUpdate(ActionEvent actionEvent) {
+        CourseDTO courseDTO = checkMatch();
+        if (courseDTO != null) {
+            boolean isUpdated = courseBo.update(courseDTO);
+            if (isUpdated) {
+                new Alert(Alert.AlertType.INFORMATION, "Updated", ButtonType.OK).show();
+            }
+            else {
+                new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();
+            }
+        }
+
+    }
 }
 
