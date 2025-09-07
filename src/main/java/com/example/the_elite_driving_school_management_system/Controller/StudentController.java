@@ -1,7 +1,9 @@
 package com.example.the_elite_driving_school_management_system.Controller;
 
 import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
+import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.StudentBo;
+import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.TM.StudentTM;
 import javafx.collections.FXCollections;
@@ -55,16 +57,18 @@ public class StudentController implements Initializable {
     private final String phonePattern = "^(\\d+)$";
 
     private final StudentBo studentBo = (StudentBo) BOFactory.getInstance().getBO(BOFactory.BOType.STUDENT);
+    private final CourseBo courseBo = (CourseBo) BOFactory.getInstance().getBO(BOFactory.BOType.COURSE);
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loadCoursesFromDB();
         table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 setDataToFields(newSelection);
             }
         });
         setupTableColumns();
-        courseSelection();
+
         loadTableData();
         txtStudentId.setText(generateNewId());
     }
@@ -124,6 +128,7 @@ public class StudentController implements Initializable {
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Student Added Successfully").show();
                 txtStudentId.setText(generateNewId());
+                loadCoursesFromDB();
                 loadTableData();
             } else {
                 new Alert(Alert.AlertType.ERROR, "Student Already Exists").show();
@@ -168,29 +173,40 @@ public class StudentController implements Initializable {
         return "S001";
     }
 
-    private void courseSelection() {
-        courseListView.getItems().addAll(
-                "Basic Learner Program",
-                "Advanced Defensive Driving",
-                "Motorcycle License Training",
-                "Heavy Vehicle Training",
-                "Refresher Driving Course"
-        );
+    private void loadCoursesFromDB() {
+        // Clear old items
+        courseListView.getItems().clear();
 
         Map<String, String> courseMapping = new HashMap<>();
-        courseMapping.put("Basic Learner Program", "Basic Learner Program: RS 50,000.00");
-        courseMapping.put("Advanced Defensive Driving", "Advanced Defensive Driving: RS 65,000.00");
-        courseMapping.put("Motorcycle License Training", "Motorcycle License Training: RS 75,000.00");
-        courseMapping.put("Heavy Vehicle Training", "Heavy Vehicle Training: RS 150,000.00");
-        courseMapping.put("Refresher Driving Course", "Refresher Driving Course: RS 150,000.00");
-
         Map<String, String> courseIdMapping = new HashMap<>();
-        courseIdMapping.put("Basic Learner Program", "C1001");
-        courseIdMapping.put("Advanced Defensive Driving", "C1002");
-        courseIdMapping.put("Motorcycle License Training", "C1003");
-        courseIdMapping.put("Heavy Vehicle Training", "C1004");
-        courseIdMapping.put("Refresher Driving Course", "C1005");
 
+        try {
+            // Fetch all courses from DB
+            List<CourseDTO> courseList = courseBo.getAllCourses();
+
+            // Create ObservableList and fill it with course names
+            ObservableList<String> courseNames = FXCollections.observableArrayList();
+            for (CourseDTO course : courseList) {
+                String courseName = course.getName();
+                courseNames.add(courseName);
+
+                // Map for fee and ID
+                String feeDisplay = String.format("%,.2f", course.getFee());
+                courseMapping.put(courseName, courseName + ": RS " + feeDisplay);
+                courseIdMapping.put(courseName, course.getId());
+            }
+
+            // Set ObservableList to ListView
+            courseListView.setItems(courseNames);
+
+            // Debug: print all items
+            System.out.println("Courses loaded: " + courseListView.getItems());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Handle click event
         courseListView.setOnMouseClicked(event -> {
             String selectedCourse = courseListView.getSelectionModel().getSelectedItem();
             if (selectedCourse != null) {
@@ -200,6 +216,9 @@ public class StudentController implements Initializable {
             }
         });
     }
+
+
+
 
     public void btnUpdate(ActionEvent actionEvent) {
     StudentDTO studentDTO = checkMatch();

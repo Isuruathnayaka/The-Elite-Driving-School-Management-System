@@ -4,6 +4,12 @@ import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo
 import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.CourseDAO;
 import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
+import com.example.the_elite_driving_school_management_system.Entity.Course;
+import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
+import org.hibernate.Session;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CourseBoImpl implements CourseBo {
     private final CourseDAO courseDAO;
@@ -26,4 +32,26 @@ public class CourseBoImpl implements CourseBo {
     public String generateNewCourseId() {
         return courseDAO.generateNewId();
     }
+
+
+    @Override
+    public List<CourseDTO> getAllCourses() {
+        List<CourseDTO> courseDTOList = new ArrayList<>();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            List<Course> courses = session.createQuery("FROM Course", Course.class).list();
+            for (Course c : courses) {
+                courseDTOList.add(new CourseDTO(
+                        c.getId(),
+                        c.getName(),
+                        c.getDuration(),
+                        c.getFee(),
+                        c.getDescription()
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return courseDTOList;
+    }
+
 }

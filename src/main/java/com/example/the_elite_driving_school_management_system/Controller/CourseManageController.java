@@ -87,7 +87,7 @@ public class CourseManageController implements Initializable {
         try {
             fee = Double.valueOf(feeText);
         } catch (NumberFormatException e) {
-            return null; // invalid fee
+            return null;
         }
 
         String description = txtDescription.getText();

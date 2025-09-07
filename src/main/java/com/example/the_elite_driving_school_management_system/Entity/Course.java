@@ -30,6 +30,9 @@ public class Course {
         this.description = description;
     }
 
+    public Course() {
+    }
+
     public String getId() {
         return id;
     }
