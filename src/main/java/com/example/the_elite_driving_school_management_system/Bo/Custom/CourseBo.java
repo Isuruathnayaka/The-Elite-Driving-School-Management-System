@@ -9,4 +9,6 @@ public interface CourseBo extends CrudBo<CourseDTO> {
     String generateNewCourseId();
 
     List<CourseDTO> getAllCourses();
+
+    boolean delete(String id);
 }

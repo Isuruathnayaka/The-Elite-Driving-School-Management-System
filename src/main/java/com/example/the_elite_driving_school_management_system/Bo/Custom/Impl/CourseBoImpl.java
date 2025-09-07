@@ -25,7 +25,7 @@ public class CourseBoImpl implements CourseBo {
 
     @Override
     public boolean update(CourseDTO dto) {
-        return false;
+        return courseDAO.update(MapUtil.toEntity(dto));
     }
 
     @Override
@@ -52,6 +52,11 @@ public class CourseBoImpl implements CourseBo {
             e.printStackTrace();
         }
         return courseDTOList;
+    }
+
+    @Override
+    public boolean delete(String id) {
+        return courseDAO.delete(id);
     }
 
 }

@@ -104,7 +104,7 @@ public class StudentDAOImpl implements StudentDAO {
         try {
             Student student = session.get(Student.class, studentId);
             if (student != null) {
-                session.remove(student); // Use remove() instead of delete()
+                session.remove(student);
                 tx.commit();
                 return true;
             }

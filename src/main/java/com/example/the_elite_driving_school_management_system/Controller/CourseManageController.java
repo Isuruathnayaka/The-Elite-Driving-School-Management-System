@@ -8,6 +8,7 @@ import com.example.the_elite_driving_school_management_system.TM.CourseTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CourseManageController implements Initializable {
+    @FXML
     public Button btnsaveACourse;
     public AnchorPane addCourseANC;
     public Label txtCourseID;
@@ -33,6 +35,9 @@ public class CourseManageController implements Initializable {
     public TextField txtDescription;
     private final String namePattern = "^[A-Za-z ]{2,50}$";
     public Button btnEditeCourse;
+    public Button btnSaveCourse;
+    public Button btnDelete;
+    public AnchorPane ANCCourse;
     private String durationPattern = "^[0-9]+\\s+(Week|Weeks|Month|Months|Day|Days)$";
 
     private String feePattern = "^[0-9]+(\\.[0-9]{1,2})?$";
@@ -47,20 +52,37 @@ public class CourseManageController implements Initializable {
         setupTableColumns();
         loadTableData();
         txtCourseID.setText(generateNewId());
+
+
+             btnSaveCourse.setVisible(true);
+             btnEditeCourse.setVisible(false);
+             btnDelete.setVisible(false);
+
         table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 setDataToFields((CourseTM) newValue);
-                btnsaveACourse.setVisible(false);
-                btnEditeCourse.setVisible(true);
 
+                btnSaveCourse.setVisible(false); // hide Save
+                btnEditeCourse.setVisible(true);  // show Edit
+                btnDelete.setVisible(true);
+            } else {
+                // If no row selected, reset
+              btnSaveCourse.setVisible(true);
+                btnEditeCourse.setVisible(false);
+                btnDelete.setVisible(false);
             }
         });
+        ANCCourse.setOnMouseClicked(event -> {
+            addCourseANC.setVisible(false);
+            clear();
+        });
     }
- private void setDataToFields(CourseTM course) {
+
+    private void setDataToFields(CourseTM course) {
         txtCourseID.setText(course.getId());
         txtName.setText(course.getName());
         txtDuration.setText(course.getDuration());
-        txtFee.setText(course.setFee(course.getFee()));
+        txtFee.setText(String.valueOf(course.getFee()));
         txtDescription.setText(course.getDescription());
  }
     private String generateNewId() {
@@ -111,6 +133,9 @@ private void setupTableColumns(){
                 new Alert(Alert.AlertType.INFORMATION, "Saved", ButtonType.OK).show();
                 addCourseANC.setVisible(false);
                 txtCourseID.setText(generateNewId());
+                loadTableData();
+                clear();
+
 
             } else {
                 new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();
@@ -120,6 +145,13 @@ private void setupTableColumns(){
         } else {
             new Alert(Alert.AlertType.ERROR,"Invalid", ButtonType.OK).show();
         }
+    }
+    private void clear(){
+        txtCourseID.setText(generateNewId());
+        txtName.clear();
+        txtDuration.clear();
+        txtFee.clear();
+        txtDescription.clear();
     }
 
     private CourseDTO checkMatch() {
@@ -160,6 +192,20 @@ private void setupTableColumns(){
     }
 
     public void btnDelete(ActionEvent actionEvent) {
+     CourseTM selectedCourse= (CourseTM) table.getSelectionModel().getSelectedItem();
+
+     if (selectedCourse != null) {
+         boolean isDeleted=courseBo.delete(selectedCourse.getId());
+         if (isDeleted) {
+             new Alert(Alert.AlertType.INFORMATION, "Deleted", ButtonType.OK).show();
+             clear();
+             loadTableData();
+         }else {
+             new Alert(Alert.AlertType.ERROR, "Failed to delete Course", ButtonType.OK).show();
+         }
+     }
+
+
     }
 
     public void btnUpdate(ActionEvent actionEvent) {
@@ -168,6 +214,10 @@ private void setupTableColumns(){
             boolean isUpdated = courseBo.update(courseDTO);
             if (isUpdated) {
                 new Alert(Alert.AlertType.INFORMATION, "Updated", ButtonType.OK).show();
+                loadTableData();
+                txtCourseID.setText(generateNewId());
+                addCourseANC.setVisible(false);
+                clear();
             }
             else {
                 new Alert(Alert.AlertType.ERROR, "Error", ButtonType.OK).show();

@@ -12,8 +12,8 @@ public class CourseDAOImpl implements CourseDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
         try {
-            // Use persist() instead of save() for Hibernate 6.0+
-            session.persist(dto);
+
+            session.persist(dto); //persist=save
             tx.commit();
             return true;
         } catch (Exception e) {
@@ -30,7 +30,21 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public boolean update(Course dto) {
-        return false;
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            session.merge(dto); // merge=update
+            tx.commit();
+            return true;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
@@ -58,5 +72,28 @@ public class CourseDAOImpl implements CourseDAO {
             return "C1001"; // fallback to first ID if query fails
         }
 
+    }
+
+    @Override
+    public boolean delete(String id) {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        try {
+            Course course = session.get(Course.class, id);
+            if (course != null) {
+                session.remove(course);
+                tx.commit();
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+            return false;
+        } finally {
+            session.close();
+        }
     }
 }

@@ -45,9 +45,9 @@ public class CourseTM {
         return fee;
     }
 
-    public String setFee(Double fee) {
+    public Double setFee(Double fee) {
         this.fee = fee;
-        return null;
+         return fee;
     }
 
     public String getDescription() {
