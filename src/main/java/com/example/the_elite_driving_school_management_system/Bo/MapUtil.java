@@ -1,8 +1,10 @@
 package com.example.the_elite_driving_school_management_system.Bo;
 
+import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
 import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
 import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
+import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Entity.Instructor;
 import com.example.the_elite_driving_school_management_system.Entity.Login;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
@@ -75,6 +77,14 @@ public class MapUtil {
                 entity.getCourseId()
         );
     }
-
+    public static Course toEntity(CourseDTO dto) {
+        return new Course(
+                dto.getId(),
+                dto.getName(),
+                dto.getDuration(),
+                dto.getFee(),
+                dto.getDescription()
+        );
+    }
 
 }
