@@ -4,12 +4,17 @@ import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.StudentBo;
 import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
+import com.example.the_elite_driving_school_management_system.TM.CourseTM;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CourseManageController implements Initializable {
@@ -27,6 +32,7 @@ public class CourseManageController implements Initializable {
     public TextField txtFee;
     public TextField txtDescription;
     private final String namePattern = "^[A-Za-z ]{2,50}$";
+    public Button btnEditeCourse;
     private String durationPattern = "^[0-9]+\\s+(Week|Weeks|Month|Months|Day|Days)$";
 
     private String feePattern = "^[0-9]+(\\.[0-9]{1,2})?$";
@@ -38,9 +44,25 @@ public class CourseManageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setupTableColumns();
+        loadTableData();
         txtCourseID.setText(generateNewId());
-    }
+        table.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                setDataToFields((CourseTM) newValue);
+                btnsaveACourse.setVisible(false);
+                btnEditeCourse.setVisible(true);
 
+            }
+        });
+    }
+ private void setDataToFields(CourseTM course) {
+        txtCourseID.setText(course.getId());
+        txtName.setText(course.getName());
+        txtDuration.setText(course.getDuration());
+        txtFee.setText(course.setFee(course.getFee()));
+        txtDescription.setText(course.getDescription());
+ }
     private String generateNewId() {
         try {
             String id = courseBo.generateNewCourseId();
@@ -50,7 +72,31 @@ public class CourseManageController implements Initializable {
         }
         return "C1001";
     }
+    private void loadTableData(){
+        ArrayList<CourseDTO> allCourses = (ArrayList<CourseDTO>) courseBo.getAllCourses();
+        ObservableList<CourseTM>  tableList = FXCollections.observableArrayList();
 
+        if (allCourses != null) {
+            for (CourseDTO courseDTO : allCourses) {
+                tableList.add(new CourseTM(
+                        courseDTO.getId(),
+                        courseDTO.getName(),
+                        courseDTO.getDuration(),
+                        courseDTO.getFee(),
+                        courseDTO.getDescription()
+                ));
+            }
+        }
+        table.setItems(tableList);
+    }
+private void setupTableColumns(){
+    colCourseID.setCellValueFactory(new PropertyValueFactory<>("id"));
+    colCourseName.setCellValueFactory(new PropertyValueFactory<>("name"));
+    colCourseDuration.setCellValueFactory(new PropertyValueFactory<>("duration"));
+    colFee.setCellValueFactory(new PropertyValueFactory<>("fee"));
+    colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+
+}
 
     public void btnsaveACourse(ActionEvent actionEvent) {
         addCourseANC.setVisible(true);

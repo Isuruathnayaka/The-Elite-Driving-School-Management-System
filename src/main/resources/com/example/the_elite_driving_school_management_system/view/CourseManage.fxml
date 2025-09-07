@@ -57,7 +57,7 @@
                   <Image url="@../images/search.png" />
                </image>
             </ImageView>
-            <Button layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditCourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
+            <Button fx:id="btnEditeCourse" layoutX="1194.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnEditCourse" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text=" +     Edit Course " textFill="WHITE" visible="false" />
             <Button layoutX="1055.0" layoutY="85.0" mnemonicParsing="false" onAction="#btnDelete" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: #6654b3; -fx-background-radius: 30;" text="-     Delete Course " textFill="WHITE" visible="false" />
          </children>
       </AnchorPane>
