@@ -5,7 +5,7 @@ import com.example.the_elite_driving_school_management_system.DAO.Custom.LoginDA
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
 import com.example.the_elite_driving_school_management_system.DTO.LoginDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Login;
-import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

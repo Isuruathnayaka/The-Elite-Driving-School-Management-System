@@ -3,7 +3,7 @@ package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.CourseDAO;
 import com.example.the_elite_driving_school_management_system.Entity.Course;
-import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

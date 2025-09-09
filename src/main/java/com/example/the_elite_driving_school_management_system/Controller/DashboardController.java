@@ -48,6 +48,9 @@ public class DashboardController implements Initializable {
         btnCourcesManage.setOnMouseClicked(mouseEvent -> {
             navigateTo("/com/example/the_elite_driving_school_management_system/view/CourseManage.fxml",ANCMain);
         });
+        btnScheduleManagement.setOnMouseClicked(mouseEvent -> {
+            navigateTo("/com/example/the_elite_driving_school_management_system/view/LessonSchedule.fxml",ANCMain);
+        });
     }
     public static void navigateTo(String path, AnchorPane ANCMain) {
         try {

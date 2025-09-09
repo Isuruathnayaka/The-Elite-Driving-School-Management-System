@@ -2,16 +2,19 @@ package com.example.the_elite_driving_school_management_system.Bo.Custom.Impl;
 
 import com.example.the_elite_driving_school_management_system.Bo.Custom.CourseBo;
 import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
+import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.CourseDAO;
 import com.example.the_elite_driving_school_management_system.DTO.CourseDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Course;
-import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
+
 import org.hibernate.Session;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseBoImpl implements CourseBo {
+    private final FactoryConfiguration factoryConfiguration =
+            FactoryConfiguration.getInstance();
     private final CourseDAO courseDAO;
 
     public CourseBoImpl(CourseDAO courseDAO) {
@@ -37,7 +40,7 @@ public class CourseBoImpl implements CourseBo {
     @Override
     public List<CourseDTO> getAllCourses() {
         List<CourseDTO> courseDTOList = new ArrayList<>();
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = factoryConfiguration.getSession()) {
             List<Course> courses = session.createQuery("FROM Course", Course.class).list();
             for (Course c : courses) {
                 courseDTOList.add(new CourseDTO(

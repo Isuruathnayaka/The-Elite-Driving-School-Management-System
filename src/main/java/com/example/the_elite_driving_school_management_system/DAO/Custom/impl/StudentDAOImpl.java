@@ -1,10 +1,11 @@
 package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
+import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.StudentDAO;
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
 import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
 import com.example.the_elite_driving_school_management_system.Entity.Student;
-import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -12,10 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
+    private static FactoryConfiguration factoryConfiguration=FactoryConfiguration.getInstance();;
 
     @Override
     public boolean save(Student dto) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
             // Use persist() instead of save() for Hibernate 6.0+
@@ -35,7 +37,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public String generateNewId() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = factoryConfiguration.getSession()) {
             // Get the last studentId (ordered descending)
             String lastId = session.createQuery(
                             "SELECT s.id FROM Student s ORDER BY s.id DESC", String.class
@@ -61,7 +63,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public ArrayList<Student> getAll() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session =factoryConfiguration.getSession()) {
             List<Student> entityList = session.createQuery("from Student", Student.class).list();
             return new ArrayList<>(entityList); // return entities
         }
@@ -70,7 +72,7 @@ public class StudentDAOImpl implements StudentDAO {
     // Additional CRUD methods you might need
 
     public Student findById(String id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = factoryConfiguration.getSession()) {
             return session.get(Student.class, id);
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,7 +83,7 @@ public class StudentDAOImpl implements StudentDAO {
 
 
     public boolean update(Student student) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
             session.merge(student); // Use merge() for updates
@@ -99,7 +101,7 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     public boolean delete(String studentId) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session =factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
             Student student = session.get(Student.class, studentId);
