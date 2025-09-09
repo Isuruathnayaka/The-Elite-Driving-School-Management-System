@@ -1,5 +1,6 @@
 package com.example.the_elite_driving_school_management_system.DAO.Custom.impl;
 
+import com.example.the_elite_driving_school_management_system.Config.FactoryConfiguration;
 import com.example.the_elite_driving_school_management_system.DAO.Custom.CourseDAO;
 import com.example.the_elite_driving_school_management_system.Entity.Course;
 import com.example.the_elite_driving_school_management_system.Util.HibernateUtil;
@@ -7,9 +8,11 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class CourseDAOImpl implements CourseDAO {
+    private final FactoryConfiguration factoryConfiguration =
+            FactoryConfiguration.getInstance();
     @Override
     public boolean save(Course dto) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
 
@@ -29,7 +32,7 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public boolean update(Course dto) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
             session.merge(dto); // merge=update
@@ -48,7 +51,7 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public String generateNewId() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = factoryConfiguration.getSession();) {
             // Get the last courseId (ordered descending)
             String lastId = session.createQuery(
                             "SELECT c.id FROM Course c ORDER BY c.id DESC", String.class
@@ -75,7 +78,7 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public boolean delete(String id) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        Session session = factoryConfiguration.getSession();
         Transaction tx = session.beginTransaction();
         try {
             Course course = session.get(Course.class, id);
