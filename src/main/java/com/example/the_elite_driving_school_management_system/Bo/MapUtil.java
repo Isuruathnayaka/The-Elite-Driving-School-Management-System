@@ -59,8 +59,8 @@ public class MapUtil {
                 dto.getContact(),
                 dto.getEmail(),
                 dto.getDate(),        // LocalDate (or Date if your entity uses Date)
-                dto.getCourse(),
-                dto.getCourseId()
+                dto.getCourse()
+               // dto.getCourseId()
         );
     }
 
@@ -73,8 +73,8 @@ public class MapUtil {
                 entity.getContact(),
                 entity.getEmail(),
                 entity.getRegistrationDate(),  // LocalDate
-                entity.getCourse(),
-                entity.getCourseId()
+                entity.getCourse()
+//                entity.getCourseId()
         );
     }
     public static Course toEntity(CourseDTO dto) {

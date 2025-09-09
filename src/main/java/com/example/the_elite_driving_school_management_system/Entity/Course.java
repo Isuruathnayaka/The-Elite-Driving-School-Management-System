@@ -1,11 +1,10 @@
 package com.example.the_elite_driving_school_management_system.Entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
-import javax.xml.namespace.QName;
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "course")
@@ -21,6 +20,10 @@ public class Course {
     private Double fee;
     @Column (name = "description", nullable = false)
     private String description;
+
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Lesson> lessons = new ArrayList<>();
+
 
     public Course(String id, String name, String duration, Double fee, String description) {
         this.id = id;

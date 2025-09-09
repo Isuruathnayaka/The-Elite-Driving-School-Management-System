@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 
 @Getter
 @Setter
@@ -20,7 +19,7 @@ public class InstructorTM implements  Comparable<InstructorTM> {
     private String email;
     private LocalDate date;     // must match PropertyValueFactory
     private String courses;     // must match PropertyValueFactory
-    private String courseID;
+   // private String courseID;
 
 
     @Override

@@ -17,6 +17,10 @@
     <mapping class="com.example.the_elite_driving_school_management_system.Entity.Student"/>
     <mapping class="com.example.the_elite_driving_school_management_system.Entity.Instructor"/>
     <mapping class="com.example.the_elite_driving_school_management_system.Entity.Course"/>
+    <mapping class="com.example.the_elite_driving_school_management_system.Entity.Lesson"/>
+
+
+
 
 
 

@@ -25,7 +25,6 @@ public class CourseDAOImpl implements CourseDAO {
         } finally {
             session.close();
         }
-
     }
 
     @Override

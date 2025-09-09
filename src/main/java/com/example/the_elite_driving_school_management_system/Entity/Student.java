@@ -3,6 +3,9 @@ package com.example.the_elite_driving_school_management_system.Entity;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+
+import java.util.List;
 import java.util.Objects;
 
 
@@ -38,6 +41,17 @@ public class Student {
     @Column(name = "courseId", nullable = false, unique = true)
     private String courseId;
 
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Lesson> lessons = new ArrayList<>();
+
     // Default constructor (required by JPA)
     public Student() {}
 
@@ -52,6 +66,12 @@ public class Student {
         this.email = email;
         this.registrationDate = registrationDate;
         this.courseType = courseType;
+        this.courseId = courseId;
+    }
+
+
+
+    public void setCourseId(String courseId) {
         this.courseId = courseId;
     }
 

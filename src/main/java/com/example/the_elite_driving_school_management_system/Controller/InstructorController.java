@@ -2,12 +2,8 @@ package com.example.the_elite_driving_school_management_system.Controller;
 
 import com.example.the_elite_driving_school_management_system.Bo.BOFactory;
 import com.example.the_elite_driving_school_management_system.Bo.Custom.InstructorBo;
-import com.example.the_elite_driving_school_management_system.Bo.MapUtil;
 import com.example.the_elite_driving_school_management_system.DTO.InstructorDTO;
-import com.example.the_elite_driving_school_management_system.DTO.StudentDTO;
-import com.example.the_elite_driving_school_management_system.Entity.Instructor;
 import com.example.the_elite_driving_school_management_system.TM.InstructorTM;
-import com.example.the_elite_driving_school_management_system.TM.StudentTM;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -87,8 +83,8 @@ public class InstructorController implements Initializable {
                         instructor.getContact(),
                         instructor.getEmail(),
                         instructor.getRegistrationDate(),
-                        instructor.getCourse(),
-                        instructor.getCourseId()
+                        instructor.getCourse()
+//                        instructor.getCourseId()
                 ));
             }
         }
@@ -148,7 +144,7 @@ public class InstructorController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "S001";
+        return "I001";
     }
 
     public InstructorDTO checkMatch() {
@@ -176,8 +172,7 @@ public class InstructorController implements Initializable {
                         contact,
                         email,
                         date,
-                        courses,
-                        courseID
+                        courses
                 );
             }
         } catch (Exception e) {
